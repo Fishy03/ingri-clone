@@ -18,16 +18,25 @@
 
 // module.exports = { getAllRecipes };
 
+const Recipe = require("../models/Recipe");
+
 const getAllRecipes = async (req, res) => {
-  res.status(200).json({
-    success: true,
-    data: [
-      {
-        title: "Test Recipe",
-        description: "Render is working",
-      },
-    ],
-  });
+  try {
+    const recipes = await Recipe.find();
+
+    res.json({
+      success: true,
+      data: recipes,
+    });
+  } catch (error) {
+    console.error("FULL ERROR:", error);
+    console.error("STACK:", error.stack);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
 module.exports = { getAllRecipes };
