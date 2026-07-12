@@ -1,0 +1,411 @@
+/* =========================
+   HERO
+========================= */
+
+.reserve-hero {
+  position: relative;
+  height: 500px;
+  overflow: hidden;
+}
+
+.reserve-hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reserve-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.reserve-content {
+  position: relative;
+  z-index: 2;
+
+  width: 90%;
+  max-width: 1200px;
+  height: 100%;
+
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reserve-tag {
+  color: #e4dcc9;
+  letter-spacing: 5px;
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+
+.reserve-content h1 {
+  font-family: "Syne", sans-serif;
+  font-size: 70px;
+  color: #fff;
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.reserve-content h1 span {
+  font-style: italic;
+  font-weight: 300;
+  color: #e8dcc4;
+}
+
+.reserve-content p {
+  color: white;
+  max-width: 600px;
+  line-height: 1.8;
+}
+
+/* =========================
+   BOOKING
+========================= */
+
+.booking-section {
+  background: #fafaf6;
+  padding: 90px 0;
+}
+
+.booking-container {
+  width: 90%;
+  max-width: 1300px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 45px;
+}
+
+/* =========================
+   LEFT
+========================= */
+
+.restaurant-card {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 25px;
+}
+
+.restaurant-card img {
+  width: 100%;
+  display: block;
+}
+
+.restaurant-card-overlay {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding: 28px;
+
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+}
+
+.restaurant-card-overlay h3 {
+  color: white;
+  margin-bottom: 6px;
+  font-size: 28px;
+}
+
+.restaurant-card-overlay p {
+  color: #ddd;
+}
+
+.info-card {
+  display: flex;
+  gap: 18px;
+
+  background: white;
+  padding: 24px;
+
+  border-radius: 16px;
+  margin-bottom: 18px;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+}
+
+.info-card svg {
+  color: #2f5d34;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.info-card h4 {
+  color: #234938;
+  margin-bottom: 6px;
+}
+
+.info-card p {
+  color: #666;
+  line-height: 1.6;
+}
+
+.policy-card {
+  margin-top: 20px;
+
+  padding: 28px;
+
+  border-radius: 16px;
+
+  background: #edf5ef;
+}
+
+.policy-card h5 {
+  color: #234938;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.policy-card p {
+  color: #666;
+  line-height: 1.8;
+}
+
+/* =========================
+   RIGHT
+========================= */
+
+.booking-right {
+  background: white;
+
+  padding: 45px;
+
+  border-radius: 18px;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.form-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-bottom: 35px;
+}
+
+.form-title svg {
+  color: #2f5d34;
+}
+
+.form-title h3 {
+  font-family: "Syne", sans-serif;
+  font-size: 30px;
+  color: #234938;
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.input-group label {
+  margin-bottom: 10px;
+  color: #234938;
+  font-weight: 600;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+  width: 100%;
+
+  padding: 16px 18px;
+
+  border: 1px solid #d8e2da;
+
+  border-radius: 12px;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition: 0.3s;
+}
+
+.input-group textarea {
+  resize: none;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+  border-color: #2f5d34;
+}
+
+.input-icon {
+  position: relative;
+}
+
+.input-icon svg {
+  position: absolute;
+
+  left: 18px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #2f5d34;
+}
+
+.input-icon input,
+.input-icon select {
+  padding-left: 48px;
+}
+
+.confirm-btn {
+  margin-top: 10px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #2f5d34;
+
+  color: white;
+
+  padding: 18px;
+
+  cursor: pointer;
+
+  font-size: 16px;
+
+  transition: 0.3s;
+}
+
+.confirm-btn:hover {
+  background: #21432f;
+}
+
+/* =========================
+   SUCCESS POPUP
+========================= */
+
+.success-popup {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+}
+
+.success-card {
+  width: 430px;
+
+  background: white;
+
+  padding: 45px;
+
+  border-radius: 20px;
+
+  text-align: center;
+
+  animation: popup 0.35s ease;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.success-card svg {
+  color: #2f5d34;
+  margin-bottom: 20px;
+}
+
+.success-card h2 {
+  font-family: "Syne", sans-serif;
+  font-size: 34px;
+  color: #234938;
+  margin-bottom: 16px;
+}
+
+.success-card p {
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+
+.success-card button {
+  border: none;
+
+  background: #2f5d34;
+
+  color: white;
+
+  padding: 14px 34px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.success-card button:hover {
+  background: #21432f;
+}
+
+@keyframes popup {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+  .booking-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .reserve-content h1 {
+    font-size: 48px;
+  }
+
+  .booking-right {
+    padding: 30px;
+  }
+
+  .input-row {
+    grid-template-columns: 1fr;
+  }
+}

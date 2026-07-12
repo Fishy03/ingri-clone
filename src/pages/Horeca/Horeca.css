@@ -1,0 +1,295 @@
+/* ===================================
+   HERO
+=================================== */
+
+.horeca-hero {
+  position: relative;
+  overflow: hidden;
+  background: #f7fbfa;
+  padding: 90px 0;
+}
+
+.horeca-container {
+  width: 90%;
+  max-width: 1280px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 90px;
+
+  position: relative;
+  z-index: 2;
+}
+
+.horeca-left {
+  max-width: 520px;
+}
+
+.horeca-tag {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: #9caea7;
+  margin-bottom: 18px;
+}
+
+.horeca-left h1 {
+  font-family: "Syne", sans-serif;
+  font-size: 64px;
+  line-height: 1.05;
+  color: #214939;
+  margin-bottom: 25px;
+}
+
+.horeca-left h1 span {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.horeca-left p {
+  color: #606060;
+  line-height: 1.9;
+  font-size: 16px;
+  margin-bottom: 35px;
+}
+
+.horeca-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.horeca-primary,
+.horeca-secondary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 16px 28px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+
+  font-size: 15px;
+}
+
+.horeca-primary {
+  background: #234d39;
+  color: white;
+  border: none;
+}
+
+.horeca-primary:hover {
+  background: #19392b;
+}
+
+.horeca-secondary {
+  background: white;
+  color: #234d39;
+  border: 1px solid #d7ddd9;
+}
+
+.horeca-secondary:hover {
+  background: #f4f4f4;
+}
+
+.horeca-right {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.horeca-right img {
+  width: 100%;
+  max-width: 430px;
+  border-radius: 18px;
+
+  object-fit: cover;
+
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.08);
+}
+
+.horeca-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: #edf5f3;
+}
+
+.horeca-circle-one {
+  width: 520px;
+  height: 520px;
+
+  right: 220px;
+  top: -80px;
+
+  opacity: 0.8;
+}
+
+.horeca-circle-two {
+  width: 120px;
+  height: 120px;
+
+  left: 30px;
+  bottom: 40px;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: #2f5d34;
+  color: #ffffff;
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(47, 93, 52, 0.3);
+}
+
+/* ===================================
+   SERVICES
+=================================== */
+
+.services-section {
+  padding: 100px 0;
+  background: #ffffff;
+}
+
+.services-heading {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.services-heading p {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: #9caea7;
+  margin-bottom: 15px;
+}
+
+.services-heading h2 {
+  font-family: "Syne", sans-serif;
+  font-size: 52px;
+  color: #234938;
+}
+
+.services-heading h2 span {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.services-grid {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.service-card {
+  background: #fff;
+  border: 1px solid #e4ece7;
+  border-radius: 20px;
+  padding: 40px 35px;
+
+  transition: 0.35s;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
+}
+
+.service-card svg {
+  color: #2f5d34;
+  margin-bottom: 25px;
+}
+
+.service-card h3 {
+  font-family: "Syne", sans-serif;
+  font-size: 28px;
+  color: #234938;
+  margin-bottom: 15px;
+}
+
+.service-card p {
+  color: #666;
+  line-height: 1.8;
+}
+
+/* ===================================
+   WHY CHOOSE US
+=================================== */
+
+.why-section {
+  padding: 100px 0;
+  background: #fafaf6;
+}
+
+.why-container {
+  width: 90%;
+  max-width: 1250px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.why-image img {
+  width: 100%;
+  border-radius: 20px;
+  display: block;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+}
+
+.why-tag {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: #9caea7;
+  margin-bottom: 18px;
+}
+
+.why-content h2 {
+  font-family: "Syne", sans-serif;
+  font-size: 56px;
+  color: #234938;
+  margin-bottom: 35px;
+}
+
+.why-content h2 span {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.why-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.why-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.why-item svg {
+  color: #2f5d34;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.why-item span {
+  color: #555;
+  line-height: 1.8;
+}

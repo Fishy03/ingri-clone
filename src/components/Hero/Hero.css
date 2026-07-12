@@ -1,0 +1,131 @@
+.hero {
+    background: linear-gradient(135deg, #f5f9f5 0%, #ffffff 100%);
+    padding: 80px 32px;
+}
+
+.hero-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+}
+
+.hero-content {
+    padding: 32px 0;
+}
+
+.hero-content h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 56px;
+    font-weight: 700;
+    color: #2f5d34;
+    line-height: 1.2;
+    margin-bottom: 24px;
+}
+
+.hero-content p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 500px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.btn-primary {
+    display: inline-block;
+    background: #2f5d34;
+    color: #ffffff;
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px rgba(47, 93, 52, 0.3);
+}
+
+.btn-primary:hover {
+    background: #1B6A45;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(47, 93, 52, 0.4);
+}
+
+.btn-secondary {
+    display: inline-block;
+    background: transparent;
+    color: #2f5d34;
+    padding: 16px 32px;
+    border: 2px solid #2f5d34;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: #2f5d34;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 968px) {
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        text-align: center;
+    }
+
+    .hero-content h1 {
+        font-size: 42px;
+    }
+
+    .hero-content p {
+        margin: 0 auto 32px;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero {
+        padding: 48px 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 32px;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        text-align: center;
+    }
+}
