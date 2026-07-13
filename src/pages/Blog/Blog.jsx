@@ -16,6 +16,15 @@ import heritage from "../../assets/heritage.png";
 
 import { ArrowRight } from "lucide-react";
 
+const blogImages = {
+  "Gastronomy.png": Gastronomy,
+  "wine.png": wine,
+  "Pastry.png": Pastry,
+  "gala.png": gala,
+  "farm.png": farm,
+  "heritage.png": heritage,
+};
+
 function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All Stories");
   const [currentPage, setCurrentPage] = useState(1);
@@ -183,7 +192,7 @@ function Blog() {
             {displayedPosts.map((post, index) => (
               <article className="blog-card" key={index}>
                 <div className="blog-card-image">
-                  <img src={post.image} alt={post.title} />
+                  <img src={blogImages[post.image]} alt={post.title} />
 
                   <span className="blog-card-category">{post.category}</span>
                 </div>

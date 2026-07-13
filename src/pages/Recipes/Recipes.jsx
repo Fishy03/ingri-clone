@@ -25,6 +25,15 @@ import r8 from "../../assets/recipes/r8.png";
 import r9 from "../../assets/recipes/r9.png";
 import r10 from "../../assets/recipes/r10.png";
 
+const recipeImages = {
+  "dal.webp": dal,
+  "potato.webp": potato,
+  "pulao.webp": pulao,
+  "chicken.jpg": chicken,
+  "dalmakhni.webp": dalmakhni,
+  "paneer.webp": paneer,
+};
+
 const galImgs = [r1, r2, r3, r4, r5, r6, r7, r8, r9, r10];
 
 function Recipes() {
@@ -103,7 +112,7 @@ function Recipes() {
             {recipes.map((recipe, index) => (
               <article className="recipe-card" key={index}>
                 <div className="recipe-image">
-                  <img src={recipe.image} alt={recipe.title} />
+                  <img src={recipeImages[recipe.image]} alt={recipe.title} />
 
                   <div className="recipe-badges">
                     <span>{recipe.category}</span>
