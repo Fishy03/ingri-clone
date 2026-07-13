@@ -25,13 +25,15 @@ function Blog() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/blogs');
+        const response = await fetch(
+          "${import.meta.env.VITE_API_URL}/api/blogs",
+        );
         const data = await response.json();
         if (data.success) {
           setBlogPosts(data.data);
         }
       } catch (error) {
-        console.error('Error fetching blogs:', error);
+        console.error("Error fetching blogs:", error);
       } finally {
         setLoading(false);
       }
@@ -260,25 +262,28 @@ function Blog() {
               className="newsletter-form"
               onSubmit={async (e) => {
                 e.preventDefault();
-                const email = e.target.querySelector('input').value;
+                const email = e.target.querySelector("input").value;
                 try {
-                  const response = await fetch('http://localhost:5000/api/newsletter', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
+                  const response = await fetch(
+                    "${import.meta.env.VITE_API_URL}/api/newsletter",
+                    {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({ email }),
                     },
-                    body: JSON.stringify({ email }),
-                  });
+                  );
                   const data = await response.json();
                   if (data.success) {
-                    alert('Successfully subscribed!');
+                    alert("Successfully subscribed!");
                     e.target.reset();
                   } else {
-                    alert(data.message || 'Subscription failed');
+                    alert(data.message || "Subscription failed");
                   }
                 } catch (error) {
-                  console.error('Error subscribing:', error);
-                  alert('Error subscribing. Please try again.');
+                  console.error("Error subscribing:", error);
+                  alert("Error subscribing. Please try again.");
                 }
               }}
             >

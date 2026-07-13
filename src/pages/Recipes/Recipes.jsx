@@ -34,13 +34,15 @@ function Recipes() {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/recipes');
+        const response = await fetch(
+          "${import.meta.env.VITE_API_URL}/api/recipes",
+        );
         const data = await response.json();
         if (data.success) {
           setRecipes(data.data);
         }
       } catch (error) {
-        console.error('Error fetching recipes:', error);
+        console.error("Error fetching recipes:", error);
       } finally {
         setLoading(false);
       }

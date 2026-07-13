@@ -25,13 +25,16 @@ function Contact() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5000/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        "${import.meta.env.VITE_API_URL}/api/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         },
-        body: JSON.stringify(formData),
-      });
+      );
 
       const data = await response.json();
 
@@ -45,11 +48,11 @@ function Contact() {
           message: "",
         });
       } else {
-        alert(data.message || 'Something went wrong. Please try again.');
+        alert(data.message || "Something went wrong. Please try again.");
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
-      alert('Error submitting form. Please try again.');
+      console.error("Error submitting form:", error);
+      alert("Error submitting form. Please try again.");
     }
   };
 

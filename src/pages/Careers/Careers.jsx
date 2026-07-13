@@ -14,13 +14,15 @@ function Careers() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/jobs');
+        const response = await fetch(
+          "${import.meta.env.VITE_API_URL}/api/jobs",
+        );
         const data = await response.json();
         if (data.success) {
           setJobOpenings(data.data);
         }
       } catch (error) {
-        console.error('Error fetching jobs:', error);
+        console.error("Error fetching jobs:", error);
       } finally {
         setLoading(false);
       }
