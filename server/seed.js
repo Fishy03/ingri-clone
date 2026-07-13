@@ -1,3 +1,4 @@
+const Product = require("./models/Product");
 const dns = require("dns");
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 require("dotenv").config();
@@ -186,6 +187,45 @@ const seedJobs = async () => {
   console.log("Jobs seeded successfully");
 };
 
+const seedProducts = async () => {
+  const products = [
+    {
+      name: "Almond Biscotti",
+      description: "Crunchy Italian almond biscuits.",
+      category: "Cookies",
+      price: 399,
+      image: "almond.webp",
+      featured: true,
+      stock: 50,
+    },
+
+    {
+      name: "Butter Cookies",
+      description: "Rich buttery cookies baked to perfection.",
+      category: "Cookies",
+      price: 299,
+      image: "butter.webp",
+      featured: true,
+      stock: 50,
+    },
+
+    {
+      name: "Chocolate Cookies",
+      description: "Classic chocolate cookies.",
+      category: "Cookies",
+      price: 349,
+      image: "chocolate.webp",
+      featured: false,
+      stock: 50,
+    },
+  ];
+
+  await Product.deleteMany();
+  await Product.insertMany(products);
+
+  console.log("Products seeded successfully");
+};
+
 const seedDatabase = async () => {
   await connectDB();
 
@@ -193,6 +233,7 @@ const seedDatabase = async () => {
     await seedBlogs();
     await seedRecipes();
     await seedJobs();
+    await seedProducts();
     console.log("Database seeded successfully!");
     process.exit(0);
   } catch (error) {

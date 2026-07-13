@@ -3,6 +3,7 @@ const cors = require("cors");
 // const connectDB = require('./config/db');
 
 // Import routes
+const productRoutes = require("./routes/productRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 const newsletterRoutes = require("./routes/newsletterRoutes");
 const blogRoutes = require("./routes/blogRoutes");
@@ -25,6 +26,7 @@ app.use("/api/newsletter", newsletterRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/recipes", recipeRoutes);
 app.use("/api/jobs", jobRoutes);
+app.use("/api/products", productRoutes);
 
 // Health check route
 app.get("/", (req, res) => {
