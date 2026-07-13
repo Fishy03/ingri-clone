@@ -6,7 +6,7 @@ import Footer from "../../components/Footer/Footer";
 import horecaHero from "../../assets/restaurant.png";
 import serviceImage from "../../assets/restaurant.png";
 
-import Companies from "../../components/Companies/Companies";
+import Companies from "../../components/companies/Companies";
 
 import {
   Building2,
