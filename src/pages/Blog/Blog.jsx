@@ -26,7 +26,7 @@ function Blog() {
     const fetchBlogs = async () => {
       try {
         const response = await fetch(
-          "${import.meta.env.VITE_API_URL}/api/blogs",
+          `${import.meta.env.VITE_API_URL}/api/blogs`,
         );
         const data = await response.json();
         if (data.success) {
@@ -265,7 +265,7 @@ function Blog() {
                 const email = e.target.querySelector("input").value;
                 try {
                   const response = await fetch(
-                    "${import.meta.env.VITE_API_URL}/api/newsletter",
+                    `${import.meta.env.VITE_API_URL}/api/newsletter`,
                     {
                       method: "POST",
                       headers: {
