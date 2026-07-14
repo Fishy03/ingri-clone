@@ -9,6 +9,7 @@ const newsletterRoutes = require("./routes/newsletterRoutes");
 const blogRoutes = require("./routes/blogRoutes");
 const recipeRoutes = require("./routes/recipeRoutes");
 const jobRoutes = require("./routes/jobRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use("/api/blogs", blogRoutes);
 app.use("/api/recipes", recipeRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Health check route
 app.get("/", (req, res) => {
