@@ -1,4 +1,6 @@
 import { Routes, Route } from "react-router-dom";
+import Login from "./pages/Admin/Login.jsx";
+import Dashboard from "./pages/Admin/Dashboard.jsx";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop.jsx";
 import Home from "./pages/Home/Home.jsx";
 import Shop from "./pages/Shop/Shop.jsx";
@@ -32,6 +34,8 @@ function App() {
         <Route path="/careers" element={<Careers />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/recipes" element={<Recipes />} />
+        <Route path="/admin" element={<Login />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
       </Routes>
       <CartSidebar />
       <LoginModal />

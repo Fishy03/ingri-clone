@@ -13,10 +13,15 @@
 
 require("dotenv").config();
 
+const express = require("express");
 const dns = require("dns");
+const path = require("path");
+
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 const app = require("./app");
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 const connectDB = require("./config/db");
 
 const PORT = process.env.PORT || 5000;
