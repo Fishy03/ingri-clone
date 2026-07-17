@@ -95,7 +95,7 @@ function Dashboard() {
           </div>
         </div>
 
-        <div className="table-card">
+        {/* <div className="table-card">
           <table className="product-table">
             <thead>
               <tr>
@@ -151,7 +151,76 @@ function Dashboard() {
               ))}
             </tbody>
           </table>
+        </div> */}
+
+        <div className="products-grid-admin">
+          {products.map((product) => (
+            <div className="product-admin-card" key={product._id}>
+              <div className="card-header">
+                {product.featured ? (
+                  <span className="featured-badge">⭐ Featured</span>
+                ) : (
+                  <span></span>
+                )}
+
+                <span className="price">₹{product.price}</span>
+              </div>
+
+              <div className="card-image">
+                <img
+                  src={`${import.meta.env.VITE_API_URL}/uploads/${product.image}`}
+                  alt={product.name}
+                />
+              </div>
+
+              <div className="product-content">
+                <h3 className="product-title">{product.name}</h3>
+
+                <p className="product-description">{product.description}</p>
+
+                <div className="product-meta">
+                  <span className="category-pill">{product.category}</span>
+
+                  <span
+                    className={
+                      product.stock > 10
+                        ? "stock good"
+                        : product.stock > 0
+                          ? "stock low"
+                          : "stock out"
+                    }
+                  >
+                    {product.stock > 10
+                      ? `🟢 ${product.stock} in stock`
+                      : product.stock > 0
+                        ? `🟠 Only ${product.stock} left`
+                        : "🔴 Out of Stock"}
+                  </span>
+                </div>
+
+                <div className="card-buttons">
+                  <button
+                    className="edit-btn"
+                    onClick={() => {
+                      setEditingProduct(product);
+                      setShowForm(true);
+                    }}
+                  >
+                    ✏ Edit
+                  </button>
+
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleDelete(product._id)}
+                  >
+                    🗑 Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
+
         {showForm && (
           <ProductForm
             product={editingProduct}
