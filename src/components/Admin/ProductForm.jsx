@@ -84,6 +84,9 @@ function ProductForm({ product, onClose, onSuccess }) {
   return (
     <div className="modal-overlay">
       <div className="product-form">
+        <button type="button" className="close-modal" onClick={onClose}>
+          ×
+        </button>
         <h2>{product ? "Edit Product" : "Add Product"}</h2>
 
         <form onSubmit={handleSubmit}>
@@ -124,35 +127,66 @@ function ProductForm({ product, onClose, onSuccess }) {
             onChange={handleChange}
           />
 
-          <label>
-            Featured
-            <input
-              type="checkbox"
-              name="featured"
-              checked={formData.featured}
-              onChange={handleChange}
-            />
-          </label>
-
           {product && (
             <>
-              <p>Current Image</p>
+              <h4>Current Image</h4>
 
               <img
                 src={`${import.meta.env.VITE_API_URL}/uploads/${product.image}`}
                 alt={product.name}
                 className="preview-image"
               />
-
-              <p>Choose New Image (optional)</p>
             </>
           )}
 
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImage(e.target.files[0])}
-          />
+          <label className="image-upload">
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={(e) => setImage(e.target.files[0])}
+            />
+
+            {image ? (
+              <img
+                src={URL.createObjectURL(image)}
+                alt="Preview"
+                className="preview-image"
+              />
+            ) : product ? (
+              <img
+                src={`${import.meta.env.VITE_API_URL}/uploads/${product.image}`}
+                alt={product.name}
+                className="preview-image"
+              />
+            ) : (
+              <div className="empty-upload">
+                <span className="upload-icon">📷</span>
+
+                <h4>Upload Product Image</h4>
+
+                <p>PNG, JPG up to 5 MB</p>
+              </div>
+            )}
+
+            <div className="upload-overlay">
+              {product ? (
+                <>📷 Change Product Image</>
+              ) : (
+                <>📷 Upload Product Image</>
+              )}
+            </div>
+          </label>
+
+          <label className="checkbox-group">
+            <input
+              type="checkbox"
+              name="featured"
+              checked={formData.featured}
+              onChange={handleChange}
+            />
+            <span>Featured Product</span>
+          </label>
 
           <div className="buttons">
             <button type="submit">{product ? "Update Product" : "Save"}</button>

@@ -1,85 +1,165 @@
 .dashboard {
   min-height: 100vh;
-  background: #f5f5f5;
-  padding: 40px;
+  background: #f8f5ef;
+  padding: 50px 30px;
 }
 
-.dashboard h1 {
-  color: #1f4d36;
-  margin-bottom: 30px;
+.dashboard-container {
+  max-width: 1400px;
+  margin: auto;
 }
 
 .dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 }
 
-.dashboard-header button {
+.dashboard-header h1 {
+  color: #1f4d36;
+  font-size: 38px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.dashboard-header p {
+  color: #666;
+  font-size: 16px;
+}
+
+.add-product-btn {
   background: #1f4d36;
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 14px 28px;
+  border-radius: 50px;
   cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.add-product-btn:hover {
+  background: #2c6647;
+  transform: translateY(-2px);
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-bottom: 35px;
+}
+
+.dashboard-card {
+  background: white;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
+}
+
+.dashboard-card span {
+  color: #777;
   font-size: 15px;
 }
 
-.dashboard-header button:hover {
-  background: #2d6b4e;
+.dashboard-card h2 {
+  margin-top: 15px;
+  font-size: 38px;
+  color: #1f4d36;
+}
+
+.table-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
 }
 
 .product-table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .product-table th {
   background: #1f4d36;
   color: white;
-  padding: 16px;
   text-align: left;
+  padding: 18px;
+  font-weight: 600;
 }
 
 .product-table td {
-  padding: 16px;
-  border-bottom: 1px solid #eee;
+  padding: 18px;
+  border-bottom: 1px solid #f1f1f1;
+  vertical-align: middle;
 }
 
-.product-table tr:hover {
-  background: #fafafa;
+.product-table tbody tr {
+  transition: 0.25s;
+}
+
+.product-table tbody tr:hover {
+  background: #f7faf8;
 }
 
 .product-image {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 12px;
 }
 
 .action-buttons {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .edit-btn,
 .delete-btn {
   border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 600;
   cursor: pointer;
+  transition: 0.25s;
 }
 
 .edit-btn {
-  background: #f3b13f;
+  background: #f2d48a;
+  color: #5b4200;
+}
+
+.edit-btn:hover {
+  background: #e9c86d;
 }
 
 .delete-btn {
   background: #d9534f;
   color: white;
+}
+
+.delete-btn:hover {
+  background: #bf3d39;
+}
+
+@media (max-width: 900px) {
+  .dashboard {
+    padding: 30px 20px;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .table-card {
+    overflow-x: auto;
+  }
 }

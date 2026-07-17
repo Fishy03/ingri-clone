@@ -5,19 +5,19 @@ import Navbar from "../../components/Navbar/Navbar.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import ProductCard from "../../components/ProductCard/ProductCard.jsx";
 
-import almond from "../../assets/almond biscotti.png";
-import makhana from "../../assets/almond makhana granola.png";
-import choco from "../../assets/choco chip cookies.png";
-import fresh from "../../assets/fresh chilli pickle.png";
-import butter from "../../assets/super nut butter.png";
+// import almond from "../../assets/almond biscotti.png";
+// import makhana from "../../assets/almond makhana granola.png";
+// import choco from "../../assets/choco chip cookies.png";
+// import fresh from "../../assets/fresh chilli pickle.png";
+// import butter from "../../assets/super nut butter.png";
 
-const imageMap = {
-  "almond biscotti.png": almond,
-  "almond makhana granola.png": makhana,
-  "choco chip cookies.png": choco,
-  "fresh chilli pickle.png": fresh,
-  "super nut butter.png": butter,
-};
+// const imageMap = {
+//   "almond biscotti.png": almond,
+//   "almond makhana granola.png": makhana,
+//   "choco chip cookies.png": choco,
+//   "fresh chilli pickle.png": fresh,
+//   "super nut butter.png": butter,
+// };
 
 function Shop() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -197,7 +197,7 @@ function Shop() {
                 {filteredProducts.map((product, index) => (
                   <ProductCard
                     key={`${product.name}-${index}`}
-                    image={imageMap[product.image]}
+                    image={`${import.meta.env.VITE_API_URL}/uploads/${product.image}`}
                     name={product.name}
                     price={product.price}
                   />
