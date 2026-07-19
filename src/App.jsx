@@ -16,6 +16,7 @@ import Blog from "./pages/Blog/Blog.jsx";
 import Recipes from "./pages/Recipes/Recipes.jsx";
 import CartSidebar from "./components/CartSidebar/CartSidebar.jsx";
 import LoginModal from "./components/LoginModal/LoginModal.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 function App() {
   return (
@@ -35,7 +36,14 @@ function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/admin" element={<Login />} />
-        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <CartSidebar />
       <LoginModal />

@@ -1,9 +1,12 @@
 import { useState } from "react";
 import "./Login.css";
+import { setToken } from "../../utils/auth";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -32,11 +35,9 @@ function Login() {
         return;
       }
 
-      localStorage.setItem("adminToken", data.token);
+      setToken(data.token);
 
-      window.location.href = "/admin/dashboard";
-
-      console.log(data);
+      navigate("/admin/dashboard");
     } catch (error) {
       console.error(error);
     }

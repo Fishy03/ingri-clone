@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./ProductForm.css";
+import { getToken } from "../../utils/auth";
 
 function ProductForm({ product, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -62,6 +63,9 @@ function ProductForm({ product, onClose, onSuccess }) {
 
       const response = await fetch(url, {
         method,
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
         body: data,
       });
 

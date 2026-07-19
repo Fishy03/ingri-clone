@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Dashboard.css";
 import ProductForm from "../../components/Admin/ProductForm";
+import { getToken } from "../../utils/auth";
 
 function Dashboard() {
   const [products, setProducts] = useState([]);
@@ -39,9 +40,11 @@ function Dashboard() {
         `${import.meta.env.VITE_API_URL}/api/products/${id}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          },
         },
       );
-
       const data = await response.json();
 
       if (data.success) {
@@ -94,64 +97,6 @@ function Dashboard() {
             <h2>{new Set(products.map((product) => product.category)).size}</h2>
           </div>
         </div>
-
-        {/* <div className="table-card">
-          <table className="product-table">
-            <thead>
-              <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Stock</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {products.map((product) => (
-                <tr key={product._id}>
-                  <td>
-                    <img
-                      src={`${import.meta.env.VITE_API_URL}/uploads/${product.image}`}
-                      alt={product.name}
-                      className="product-image"
-                    />
-                  </td>
-
-                  <td>{product.name}</td>
-
-                  <td>₹{product.price}</td>
-
-                  <td>{product.category}</td>
-
-                  <td>{product.stock}</td>
-
-                  <td>
-                    <div className="action-buttons">
-                      <button
-                        className="edit-btn"
-                        onClick={() => {
-                          setEditingProduct(product);
-                          setShowForm(true);
-                        }}
-                      >
-                        Edit
-                      </button>
-
-                      <button
-                        className="delete-btn"
-                        onClick={() => handleDelete(product._id)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div> */}
 
         <div className="products-grid-admin">
           {products.map((product) => (
