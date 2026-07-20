@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 
 import { useCart } from "../../context/CartContext";
+import { useState, useEffect } from "react";
 
 import heroImage from "../../assets/hero.png";
 import gifting from "../../assets/gifting.png";
@@ -23,43 +24,29 @@ import {
   ShoppingBag,
 } from "lucide-react";
 
-const giftSets = [
-  {
-    id: 1,
-    name: "Premium Snack Box",
-    image: almond,
-    price: 999,
-    description:
-      "A carefully curated snack hamper with premium ready-to-eat products.",
-  },
-
-  {
-    id: 2,
-    name: "Spice Lover's Hamper",
-    image: fresh,
-    price: 1499,
-    description:
-      "Authentic spice blends and pickles for every food enthusiast.",
-  },
-
-  {
-    id: 3,
-    name: "Sweet Treat Collection",
-    image: choco,
-    price: 799,
-    description: "Cookies, sweets and delightful treats beautifully packed.",
-  },
-
-  {
-    id: 4,
-    name: "Healthy Wellness Box",
-    image: makhana,
-    price: 1199,
-    description: "Healthy snacks and granola for conscious gifting.",
-  },
-];
-
 function Gifting() {
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+  useEffect(() => {
+    const fetchFeaturedProducts = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/products`,
+        );
+
+        const data = await response.json();
+
+        if (data.success) {
+          const featured = data.data.filter((product) => product.featured);
+
+          setFeaturedProducts(featured);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchFeaturedProducts();
+  }, []);
   const { addToCart } = useCart();
 
   return (
@@ -186,10 +173,13 @@ function Gifting() {
           </div>
 
           <div className="gift-grid">
-            {giftSets.map((gift) => (
+            {featuredProducts.map((gift) => (
               <div className="gift-card" key={gift.id}>
                 <div className="gift-image">
-                  <img src={gift.image} alt={gift.name} />
+                  <img
+                    src={`${import.meta.env.VITE_API_URL}/uploads/${gift.image}`}
+                    alt={gift.name}
+                  />
                 </div>
 
                 <div className="gift-content">

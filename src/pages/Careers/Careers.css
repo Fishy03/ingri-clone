@@ -156,6 +156,57 @@
   font-weight: 300;
 }
 
+.job-openings-grid {
+  width: 90%;
+  max-width: 1200px;
+
+  margin: 70px auto 0;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 28px;
+}
+
+.job-card {
+  background: #fff;
+
+  border: 1px solid #e8eeeb;
+
+  border-radius: 20px;
+
+  padding: 30px;
+
+  transition: 0.35s;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.job-card:hover {
+  transform: translateY(-8px);
+
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+}
+
+.job-card h3 {
+  font-family: "Syne", sans-serif;
+
+  color: #234938;
+
+  font-size: 24px;
+
+  margin-bottom: 18px;
+}
+
+.job-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  color: #666;
+
+  font-size: 15px;
+}
+
 /* ===================================
    NO OPEN POSITIONS
 =================================== */
