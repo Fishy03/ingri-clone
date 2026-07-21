@@ -4,16 +4,7 @@ import { useState, useEffect } from "react";
 
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-
-import heroImage from "../../assets/hero.png";
 import recipe from "../../assets/recipe.png";
-import dal from "../../assets/dal.webp";
-import potato from "../../assets/potato.webp";
-import pulao from "../../assets/pulao.webp";
-import chicken from "../../assets/chicken.jpg";
-import dalmakhni from "../../assets/dalmakhni.webp";
-import paneer from "../../assets/paneer.webp";
-
 import r1 from "../../assets/recipes/r1.png";
 import r2 from "../../assets/recipes/r2.png";
 import r3 from "../../assets/recipes/r3.png";
@@ -24,15 +15,6 @@ import r7 from "../../assets/recipes/r7.png";
 import r8 from "../../assets/recipes/r8.png";
 import r9 from "../../assets/recipes/r9.png";
 import r10 from "../../assets/recipes/r10.png";
-
-const recipeImages = {
-  "dal.webp": dal,
-  "potato.webp": potato,
-  "pulao.webp": pulao,
-  "chicken.jpg": chicken,
-  "dalmakhni.webp": dalmakhni,
-  "paneer.webp": paneer,
-};
 
 const galImgs = [r1, r2, r3, r4, r5, r6, r7, r8, r9, r10];
 
@@ -112,7 +94,10 @@ function Recipes() {
             {recipes.map((recipe, index) => (
               <article className="recipe-card" key={index}>
                 <div className="recipe-image">
-                  <img src={recipeImages[recipe.image]} alt={recipe.title} />
+                  <img
+                    src={`${import.meta.env.VITE_API_URL}/uploads/${recipe.image}`}
+                    alt={recipe.title}
+                  />
 
                   <div className="recipe-badges">
                     <span>{recipe.category}</span>
