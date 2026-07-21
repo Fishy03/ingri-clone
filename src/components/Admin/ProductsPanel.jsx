@@ -1,14 +1,71 @@
+import { useState, useEffect } from "react";
 import ProductForm from "./ProductForm";
+import { getToken } from "../../utils/auth";
 
-function ProductsPanel({
-  products,
-  showForm,
-  editingProduct,
-  setShowForm,
-  setEditingProduct,
-  handleDelete,
-  fetchProducts,
-}) {
+function ProductsPanel(
+  {
+    // products,
+    // showForm,
+    // editingProduct,
+    // setShowForm,
+    // setEditingProduct,
+    // handleDelete,
+    // fetchProducts,
+  },
+) {
+  const [products, setProducts] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/products`,
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setProducts(data.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this product?",
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/products/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          },
+        },
+      );
+      const data = await response.json();
+
+      if (data.success) {
+        fetchProducts();
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div className="dashboard-header">

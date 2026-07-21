@@ -7,23 +7,23 @@ import Footer from "../../components/Footer/Footer";
 
 import insights from "../../assets/insights.png";
 import editor from "../../assets/editor.png";
-import Gastronomy from "../../assets/Gastronomy.png";
-import wine from "../../assets/wine.png";
-import Pastry from "../../assets/Pastry.png";
-import gala from "../../assets/gala.png";
-import farm from "../../assets/farm.png";
-import heritage from "../../assets/heritage.png";
+// import Gastronomy from "../../assets/Gastronomy.png";
+// import wine from "../../assets/wine.png";
+// import Pastry from "../../assets/Pastry.png";
+// import gala from "../../assets/gala.png";
+// import farm from "../../assets/farm.png";
+// import heritage from "../../assets/heritage.png";
 
 import { ArrowRight } from "lucide-react";
 
-const blogImages = {
-  "Gastronomy.png": Gastronomy,
-  "wine.png": wine,
-  "Pastry.png": Pastry,
-  "gala.png": gala,
-  "farm.png": farm,
-  "heritage.png": heritage,
-};
+// const blogImages = {
+//   "Gastronomy.png": Gastronomy,
+//   "wine.png": wine,
+//   "Pastry.png": Pastry,
+//   "gala.png": gala,
+//   "farm.png": farm,
+//   "heritage.png": heritage,
+// };
 
 function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All Stories");
@@ -192,18 +192,27 @@ function Blog() {
             {displayedPosts.map((post, index) => (
               <article className="blog-card" key={index}>
                 <div className="blog-card-image">
-                  <img src={blogImages[post.image]} alt={post.title} />
+                  <img
+                    src={`${import.meta.env.VITE_API_URL}/uploads/${post.image}`}
+                    alt={post.title}
+                  />
 
                   <span className="blog-card-category">{post.category}</span>
                 </div>
 
                 <div className="blog-card-content">
                   <div className="blog-card-meta">
-                    <span>{post.date}</span>
+                    <span>
+                      {new Date(post.createdAt).toLocaleDateString("en-GB", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </span>
 
-                    <span>•</span>
+                    {/* <span>•</span> */}
 
-                    <span>5 min read</span>
+                    {/* <span>{post.readTime}</span> */}
                   </div>
 
                   <h3>{post.title}</h3>
@@ -211,7 +220,7 @@ function Blog() {
                   <p>{post.excerpt}</p>
 
                   <div className="blog-card-footer">
-                    <span className="card-author">INGRI Journal</span>
+                    <span className="card-author">{post.author}</span>
 
                     <button className="blog-read-btn">
                       Read
