@@ -1,0 +1,32 @@
+.empty-state {
+  grid-column: 1 / -1;
+
+  min-height: 320px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  border: 2px dashed #d9d9d9;
+  border-radius: 18px;
+
+  background: white;
+}
+
+.empty-icon {
+  font-size: 54px;
+  margin-bottom: 18px;
+}
+
+.empty-state h3 {
+  color: #1f4d36;
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  color: #777;
+  font-size: 15px;
+}

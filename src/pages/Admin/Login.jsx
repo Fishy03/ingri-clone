@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Login.css";
 import { setToken } from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -31,7 +32,7 @@ function Login() {
       console.log(data);
 
       if (!data.success) {
-        alert(data.message);
+        toast.error(data.message);
         return;
       }
 

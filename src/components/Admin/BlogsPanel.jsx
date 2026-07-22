@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getToken } from "../../utils/auth";
 import BlogForm from "./BlogForm";
+import toast from "react-hot-toast";
 
 function BlogsPanel() {
   const [blogs, setBlogs] = useState([]);
@@ -49,7 +50,7 @@ function BlogsPanel() {
       if (data.success) {
         fetchBlogs();
       } else {
-        alert(data.message);
+        toast.error(data.message);
       }
     } catch (error) {
       console.error(error);

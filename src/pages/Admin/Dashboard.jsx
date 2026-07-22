@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../../components/Admin/Sidebar";
 import "./Dashboard.css";
+import "./Common/AdminCommon.css";
 import BlogsPanel from "../../components/Admin/BlogsPanel";
 import RecipesPanel from "../../components/Admin/RecipePanel";
 import ProductsPanel from "../../components/Admin/ProductsPanel";
 import JobsPanel from "../../components/Admin/JobPanel";
+import ContactsPanel from "../../components/Admin/ContactsPanel";
+import Newsletter from "../../components/Admin/NewsletterPanel";
 
 function Dashboard() {
   const [activePage, setActivePage] = useState("products");
@@ -24,9 +27,9 @@ function Dashboard() {
 
             {activePage === "jobs" && <JobsPanel />}
 
-            {activePage === "contacts" && <h1>Contacts</h1>}
+            {activePage === "contacts" && <ContactsPanel />}
 
-            {activePage === "newsletter" && <h1>Newsletter</h1>}
+            {activePage === "newsletter" && <Newsletter />}
           </div>
         </div>
       </div>

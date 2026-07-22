@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getToken } from "../../utils/auth";
 import RecipeForm from "./RecipeForm";
+import toast from "react-hot-toast";
 
 function RecipesPanel() {
   const [recipes, setRecipes] = useState([]);
@@ -51,7 +52,7 @@ function RecipesPanel() {
       if (data.success) {
         fetchRecipes();
       } else {
-        alert(data.message);
+        toast.error(data.message);
       }
     } catch (error) {
       console.error(error);

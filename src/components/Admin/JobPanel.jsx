@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getToken } from "../../utils/auth";
 import JobForm from "./JobForm";
+import toast from "react-hot-toast";
 
 function JobsPanel() {
   const [jobs, setJobs] = useState([]);
@@ -49,7 +50,7 @@ function JobsPanel() {
       if (data.success) {
         fetchJobs();
       } else {
-        alert(data.message);
+        toast.error(data.message);
       }
     } catch (error) {
       console.error(error);

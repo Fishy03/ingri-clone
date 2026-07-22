@@ -1,6 +1,7 @@
 import "./Blog.css";
 
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
@@ -297,7 +298,7 @@ function Blog() {
                     alert("Successfully subscribed!");
                     e.target.reset();
                   } else {
-                    alert(data.message || "Subscription failed");
+                    toast.error(data.message || "Subscription failed");
                   }
                 } catch (error) {
                   console.error("Error subscribing:", error);

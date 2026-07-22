@@ -228,3 +228,43 @@
 
   accent-color: #1f4d36;
 }
+
+.message-box {
+  margin: 12px 0;
+  padding: 12px;
+  background: #f8f8f8;
+  border-radius: 10px;
+  line-height: 1.5;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 5; /* show only 5 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+
+  min-height: 320px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  border: 2px dashed #d8d8d8;
+  border-radius: 16px;
+
+  background: #fff;
+}
+
+.empty-state h3 {
+  color: #1b4d3e;
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  color: #777;
+}

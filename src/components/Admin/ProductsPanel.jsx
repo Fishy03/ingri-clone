@@ -1,18 +1,10 @@
 import { useState, useEffect } from "react";
 import ProductForm from "./ProductForm";
 import { getToken } from "../../utils/auth";
+import toast from "react-hot-toast";
+import EmptyState from "./Common/EmptyState";
 
-function ProductsPanel(
-  {
-    // products,
-    // showForm,
-    // editingProduct,
-    // setShowForm,
-    // setEditingProduct,
-    // handleDelete,
-    // fetchProducts,
-  },
-) {
+function ProductsPanel() {
   const [products, setProducts] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -27,9 +19,12 @@ function ProductsPanel(
 
       if (data.success) {
         setProducts(data.data);
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
       console.error(error);
+      toast.error("Failed to load products.");
     }
   };
 
@@ -54,15 +49,18 @@ function ProductsPanel(
           },
         },
       );
+
       const data = await response.json();
 
       if (data.success) {
+        toast.success("Product deleted successfully.");
         fetchProducts();
       } else {
-        alert(data.message);
+        toast.error(data.message);
       }
     } catch (error) {
       console.error(error);
+      toast.error("Something went wrong.");
     }
   };
 
@@ -107,71 +105,79 @@ function ProductsPanel(
       </div>
 
       <div className="products-grid-admin">
-        {products.map((product) => (
-          <div className="product-admin-card" key={product._id}>
-            <div className="card-header">
-              {product.featured ? (
-                <span className="featured-badge">⭐ Featured</span>
-              ) : (
-                <span></span>
-              )}
+        {products.length === 0 ? (
+          <EmptyState
+            icon="📦"
+            title="No products found"
+            message="Add your first product to get started."
+          />
+        ) : (
+          products.map((product) => (
+            <div className="product-admin-card" key={product._id}>
+              <div className="card-header">
+                {product.featured ? (
+                  <span className="featured-badge">⭐ Featured</span>
+                ) : (
+                  <span></span>
+                )}
 
-              <span className="price">₹{product.price}</span>
-            </div>
+                <span className="price">₹{product.price}</span>
+              </div>
 
-            <div className="card-image">
-              <img
-                src={`${import.meta.env.VITE_API_URL}/uploads/${product.image}`}
-                alt={product.name}
-              />
-            </div>
+              <div className="card-image">
+                <img
+                  src={`${import.meta.env.VITE_API_URL}/uploads/${product.image}`}
+                  alt={product.name}
+                />
+              </div>
 
-            <div className="product-content">
-              <h3 className="product-title">{product.name}</h3>
+              <div className="product-content">
+                <h3 className="product-title">{product.name}</h3>
 
-              <p className="product-description">{product.description}</p>
+                <p className="product-description">{product.description}</p>
 
-              <div className="product-meta">
-                <span className="category-pill">{product.category}</span>
+                <div className="product-meta">
+                  <span className="category-pill">{product.category}</span>
 
-                <span
-                  className={
-                    product.stock > 10
-                      ? "stock good"
+                  <span
+                    className={
+                      product.stock > 10
+                        ? "stock good"
+                        : product.stock > 0
+                          ? "stock low"
+                          : "stock out"
+                    }
+                  >
+                    {product.stock > 10
+                      ? `🟢 ${product.stock} in stock`
                       : product.stock > 0
-                        ? "stock low"
-                        : "stock out"
-                  }
-                >
-                  {product.stock > 10
-                    ? `🟢 ${product.stock} in stock`
-                    : product.stock > 0
-                      ? `🟠 Only ${product.stock} left`
-                      : "🔴 Out of Stock"}
-                </span>
-              </div>
+                        ? `🟠 Only ${product.stock} left`
+                        : "🔴 Out of Stock"}
+                  </span>
+                </div>
 
-              <div className="card-buttons">
-                <button
-                  className="edit-btn"
-                  onClick={() => {
-                    setEditingProduct(product);
-                    setShowForm(true);
-                  }}
-                >
-                  ✏ Edit
-                </button>
+                <div className="card-buttons">
+                  <button
+                    className="edit-btn"
+                    onClick={() => {
+                      setEditingProduct(product);
+                      setShowForm(true);
+                    }}
+                  >
+                    ✏ Edit
+                  </button>
 
-                <button
-                  className="delete-btn"
-                  onClick={() => handleDelete(product._id)}
-                >
-                  🗑 Delete
-                </button>
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleDelete(product._id)}
+                  >
+                    🗑 Delete
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
       {showForm && (
@@ -182,7 +188,14 @@ function ProductsPanel(
             setEditingProduct(null);
           }}
           onSuccess={() => {
+            toast.success(
+              editingProduct
+                ? "Product updated successfully."
+                : "Product added successfully.",
+            );
+
             fetchProducts();
+
             setEditingProduct(null);
             setShowForm(false);
           }}

@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import toast from "react-hot-toast";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -48,7 +49,7 @@ function Contact() {
           message: "",
         });
       } else {
-        alert(data.message || "Something went wrong. Please try again.");
+        toast.error(data.message || "Something went wrong. Please try again.");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
