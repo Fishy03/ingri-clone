@@ -4,6 +4,7 @@ import "./Dashboard.css";
 import BlogsPanel from "../../components/Admin/BlogsPanel";
 import RecipesPanel from "../../components/Admin/RecipePanel";
 import ProductsPanel from "../../components/Admin/ProductsPanel";
+import JobsPanel from "../../components/Admin/JobPanel";
 
 function Dashboard() {
   const [activePage, setActivePage] = useState("products");
@@ -15,22 +16,13 @@ function Dashboard() {
 
         <div className="dashboard-main">
           <div className="dashboard-container">
-            {activePage === "products" && (
-              <ProductsPanel
-              // products={products}
-              // showForm={showForm}
-              // editingProduct={editingProduct}
-              // setShowForm={setShowForm}
-              // setEditingProduct={setEditingProduct}
-              // handleDelete={handleDelete}
-              // fetchProducts={fetchProducts}
-              />
-            )}
+            {activePage === "products" && <ProductsPanel />}
+
             {activePage === "blogs" && <BlogsPanel />}
 
             {activePage === "recipes" && <RecipesPanel />}
 
-            {activePage === "jobs" && <h1>Jobs</h1>}
+            {activePage === "jobs" && <JobsPanel />}
 
             {activePage === "contacts" && <h1>Contacts</h1>}
 
