@@ -309,6 +309,13 @@
   font-size: 22px;
   color: #1f4d36;
   margin-bottom: 10px;
+  /* display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+
+  line-height: 1.4;
+  min-height: calc(1.4em * 3); */
 }
 
 .product-description {

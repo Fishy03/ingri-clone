@@ -118,14 +118,12 @@ function BlogsPanel() {
             </div>
 
             <div className="product-content">
-              <h3 className="product-title">{blog.title}</h3>
+              <h3 className="product-title blog-title">{blog.title}</h3>
 
               <p className="product-description">{blog.excerpt}</p>
 
               <div className="product-meta">
                 <span className="category-pill">{blog.category}</span>
-
-                {/* <span>{blog.readTime}</span> */}
               </div>
 
               <div className="card-buttons">

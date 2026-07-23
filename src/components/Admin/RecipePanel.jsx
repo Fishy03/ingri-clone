@@ -122,7 +122,9 @@ function RecipesPanel() {
             <div className="product-content">
               <h3 className="product-title">{recipe.title}</h3>
 
-              <p className="product-description">{recipe.description}</p>
+              <p className="product-description recipe-description">
+                {recipe.description}
+              </p>
 
               <div className="product-meta">
                 <span className="category-pill">{recipe.category}</span>
