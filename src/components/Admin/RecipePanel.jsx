@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getToken } from "../../utils/auth";
 import RecipeForm from "./RecipeForm";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 function RecipesPanel() {
   const [recipes, setRecipes] = useState([]);
@@ -30,11 +31,18 @@ function RecipesPanel() {
   }, []);
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this recipe?",
-    );
+    const result = await Swal.fire({
+      title: "Delete Recipe?",
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Yes, Delete",
+      cancelButtonText: "Cancel",
+    });
 
-    if (!confirmDelete) return;
+    if (!result.isConfirmed) return;
 
     try {
       const response = await fetch(
@@ -50,12 +58,14 @@ function RecipesPanel() {
       const data = await response.json();
 
       if (data.success) {
+        toast.success("Recipe deleted successfully.");
         fetchRecipes();
       } else {
         toast.error(data.message);
       }
     } catch (error) {
       console.error(error);
+      toast.error("Something went wrong.");
     }
   };
 

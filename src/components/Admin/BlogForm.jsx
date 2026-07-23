@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./ProductForm.css";
 import { getToken } from "../../utils/auth";
+import toast from "react-hot-toast";
 
 function BlogForm({ blog, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ function BlogForm({ blog, onClose, onSuccess }) {
   });
 
   const [image, setImage] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     if (blog) {
@@ -53,6 +55,7 @@ function BlogForm({ blog, onClose, onSuccess }) {
     }
 
     try {
+      setIsSaving(true);
       let url = `${import.meta.env.VITE_API_URL}/api/blogs`;
       let method = "POST";
 
@@ -72,12 +75,12 @@ function BlogForm({ blog, onClose, onSuccess }) {
       const result = await response.json();
 
       if (result.success) {
-        alert(blog ? "Blog Updated!" : "Blog Added!");
+        toast.success(blog ? "Blog Updated!" : "Blog Added!");
 
         onSuccess();
         onClose();
       } else {
-        alert(result.message);
+        toast.error(result.message || "Something went wrong.");
       }
     } catch (error) {
       console.error(error);
@@ -180,7 +183,7 @@ function BlogForm({ blog, onClose, onSuccess }) {
           <div className="buttons">
             <button type="submit">{blog ? "Update Blog" : "Save Blog"}</button>
 
-            <button type="button" onClick={onClose}>
+            <button type="button" onClick={onClose} disabled={isSaving}>
               Cancel
             </button>
           </div>

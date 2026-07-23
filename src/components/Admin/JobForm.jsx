@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./ProductForm.css";
 import { getToken } from "../../utils/auth";
+import toast from "react-hot-toast";
 
 function JobForm({ job, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ function JobForm({ job, onClose, onSuccess }) {
     location: "",
     type: "",
   });
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     if (job) {
@@ -34,6 +36,7 @@ function JobForm({ job, onClose, onSuccess }) {
     e.preventDefault();
 
     try {
+      setIsSaving(true);
       let url = `${import.meta.env.VITE_API_URL}/api/jobs`;
       let method = "POST";
 
@@ -54,14 +57,17 @@ function JobForm({ job, onClose, onSuccess }) {
       const result = await response.json();
 
       if (result.success) {
-        alert(job ? "Job Updated!" : "Job Added!");
+        toast.success(job ? "Job Updated!" : "Job Added!");
         onSuccess();
         onClose();
       } else {
-        alert(result.message);
+        toast.error(result.message || "Something went wrong.");
       }
     } catch (error) {
       console.error(error);
+      toast.error("Failed to save job.");
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -108,9 +114,11 @@ function JobForm({ job, onClose, onSuccess }) {
           />
 
           <div className="buttons">
-            <button type="submit">{job ? "Update Job" : "Save Job"}</button>
+            <button type="submit" disabled={isSaving}>
+              {isSaving ? "Saving..." : job ? "Update Job" : "Add Job"}
+            </button>
 
-            <button type="button" onClick={onClose}>
+            <button type="button" onClick={onClose} disabled={isSaving}>
               Cancel
             </button>
           </div>

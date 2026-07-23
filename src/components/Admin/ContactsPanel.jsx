@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getToken } from "../../utils/auth";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 function ContactsPanel() {
   const [selectedContact, setSelectedContact] = useState(null);
@@ -32,11 +33,18 @@ function ContactsPanel() {
   }, []);
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this message?",
-    );
+    const result = await Swal.fire({
+      title: "Delete Message?",
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Yes, Delete",
+      cancelButtonText: "Cancel",
+    });
 
-    if (!confirmDelete) return;
+    if (!result.isConfirmed) return;
 
     try {
       const response = await fetch(
@@ -52,12 +60,14 @@ function ContactsPanel() {
       const data = await response.json();
 
       if (data.success) {
+        toast.success("Message deleted successfully.");
         fetchContacts();
       } else {
-        toast.error(data.message);
+        toast.error(data.message || "Something went wrong.");
       }
     } catch (error) {
       console.error(error);
+      toast.error("Failed to delete message.");
     }
   };
 
@@ -102,10 +112,8 @@ function ContactsPanel() {
               )}
 
               <div className="product-meta">
-                <strong>Message</strong>
+                <span>{contact.message.length} characters</span>
               </div>
-
-              <div className="message-box">{contact.message}</div>
               <button
                 className="edit-btn"
                 onClick={() => setSelectedContact(contact)}
@@ -129,6 +137,60 @@ function ContactsPanel() {
           </div>
         ))}
       </div>
+
+      {selectedContact && (
+        <div className="modal-overlay" onClick={() => setSelectedContact(null)}>
+          <div className="product-form" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="close-modal"
+              onClick={() => setSelectedContact(null)}
+            >
+              ×
+            </button>
+
+            <h2>Contact Details</h2>
+
+            <div className="contact-details">
+              <div className="detail-row">
+                <strong>Name</strong>
+                <span>{selectedContact.name}</span>
+              </div>
+
+              <div className="detail-row">
+                <strong>Email</strong>
+                <span>{selectedContact.email}</span>
+              </div>
+
+              {selectedContact.phone && (
+                <div className="detail-row">
+                  <strong>Phone</strong>
+                  <span>{selectedContact.phone}</span>
+                </div>
+              )}
+
+              {selectedContact.subject && (
+                <div className="detail-row">
+                  <strong>Subject</strong>
+                  <span>{selectedContact.subject}</span>
+                </div>
+              )}
+
+              <div className="detail-row">
+                <strong>Received</strong>
+                <span>
+                  {new Date(selectedContact.createdAt).toLocaleString()}
+                </span>
+              </div>
+
+              <div className="message-section">
+                <strong>Message</strong>
+
+                <div className="message-preview">{selectedContact.message}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

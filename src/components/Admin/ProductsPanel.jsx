@@ -3,6 +3,7 @@ import ProductForm from "./ProductForm";
 import { getToken } from "../../utils/auth";
 import toast from "react-hot-toast";
 import EmptyState from "./Common/EmptyState";
+import Swal from "sweetalert2";
 
 function ProductsPanel() {
   const [products, setProducts] = useState([]);
@@ -33,11 +34,18 @@ function ProductsPanel() {
   }, []);
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?",
-    );
+    const result = await Swal.fire({
+      title: "Delete Product?",
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Yes, Delete",
+      cancelButtonText: "Cancel",
+    });
 
-    if (!confirmDelete) return;
+    if (!result.isConfirmed) return;
 
     try {
       const response = await fetch(
@@ -188,12 +196,6 @@ function ProductsPanel() {
             setEditingProduct(null);
           }}
           onSuccess={() => {
-            toast.success(
-              editingProduct
-                ? "Product updated successfully."
-                : "Product added successfully.",
-            );
-
             fetchProducts();
 
             setEditingProduct(null);

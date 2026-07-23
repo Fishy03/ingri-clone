@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getToken } from "../../utils/auth";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 function NewsletterPanel() {
   const [subscribers, setSubscribers] = useState([]);
@@ -31,11 +32,18 @@ function NewsletterPanel() {
   }, []);
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this subscriber?",
-    );
+    const result = await Swal.fire({
+      title: "Delete Subscriber?",
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Yes, Delete",
+      cancelButtonText: "Cancel",
+    });
 
-    if (!confirmDelete) return;
+    if (!result.isConfirmed) return;
 
     try {
       const response = await fetch(
@@ -51,12 +59,14 @@ function NewsletterPanel() {
       const data = await response.json();
 
       if (data.success) {
+        toast.success("Subscriber deleted successfully.");
         fetchSubscribers();
       } else {
-        toast.error(data.message);
+        toast.error(data.message || "Something went wrong.");
       }
     } catch (error) {
       console.error(error);
+      toast.error("Failed to delete subscriber.");
     }
   };
 
@@ -81,11 +91,26 @@ function NewsletterPanel() {
       <div className="products-grid-admin">
         {subscribers.map((subscriber) => (
           <div className="product-admin-card" key={subscriber._id}>
-            <div className="product-content">
-              <h3 className="product-title">{subscriber.email}</h3>
+            <div
+              className="product-content"
+              style={{
+                textAlign: "center",
+              }}
+            >
+              <h3
+                className="product-title"
+                style={{
+                  wordBreak: "break-word",
+                }}
+              >
+                📧 {subscriber.email}
+              </h3>
 
               <div className="product-meta">
-                <span>{new Date(subscriber.createdAt).toLocaleString()}</span>
+                <span>
+                  Joined on{" "}
+                  {new Date(subscriber.createdAt).toLocaleDateString()}
+                </span>
               </div>
 
               <div className="card-buttons">

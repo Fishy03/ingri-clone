@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./ProductForm.css";
 import { getToken } from "../../utils/auth";
+import toast from "react-hot-toast";
 
 function ProductForm({ product, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -13,84 +14,92 @@ function ProductForm({ product, onClose, onSuccess }) {
   });
 
   const [image, setImage] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
-    if (product) {
-      setFormData({
-        name: product.name,
-        description: product.description,
-        category: product.category,
-        price: product.price,
-        stock: product.stock,
-        featured: product.featured,
-      });
-    }
-  }, [product]);
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    if (!product) return;
 
     setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
+      name: product.name || "",
+      description: product.description || "",
+      category: product.category || "",
+      price: product.price || "",
+      stock: product.stock || "",
+      featured: product.featured || false,
     });
+  }, [product]);
+
+  const handleChange = ({ target }) => {
+    const { name, value, type, checked } = target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!formData.name.trim()) return toast.error("Product name is required.");
+    if (!formData.category.trim()) return toast.error("Category is required.");
+    if (!formData.price) return toast.error("Price is required.");
+
     const data = new FormData();
-
-    data.append("name", formData.name);
-    data.append("description", formData.description);
-    data.append("category", formData.category);
-    data.append("price", formData.price);
-    data.append("stock", formData.stock);
-    data.append("featured", formData.featured);
-
-    if (image) {
-      data.append("image", image);
-    }
+    Object.entries(formData).forEach(([key, value]) => data.append(key, value));
+    if (image) data.append("image", image);
 
     try {
-      let url = `${import.meta.env.VITE_API_URL}/api/products`;
-      let method = "POST";
+      setIsSaving(true);
 
-      if (product) {
-        url = `${import.meta.env.VITE_API_URL}/api/products/${product._id}`;
-        method = "PUT";
-      }
+      const isEditing = Boolean(product);
 
-      const response = await fetch(url, {
-        method,
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
+      const response = await fetch(
+        isEditing
+          ? `${import.meta.env.VITE_API_URL}/api/products/${product._id}`
+          : `${import.meta.env.VITE_API_URL}/api/products`,
+        {
+          method: isEditing ? "PUT" : "POST",
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          },
+          body: data,
         },
-        body: data,
-      });
+      );
 
       const result = await response.json();
 
-      if (result.success) {
-        alert(product ? "Product Updated!" : "Product Added");
-
-        onSuccess();
-
-        onClose();
-      } else {
-        alert(result.message);
+      if (!result.success) {
+        return toast.error(result.message || "Failed to save product.");
       }
+
+      toast.success(
+        isEditing
+          ? "Product updated successfully!"
+          : "Product added successfully!",
+      );
+
+      onSuccess?.();
+      onClose?.();
     } catch (err) {
       console.error(err);
+      toast.error("Failed to save product.");
+    } finally {
+      setIsSaving(false);
     }
   };
 
   return (
     <div className="modal-overlay">
       <div className="product-form">
-        <button type="button" className="close-modal" onClick={onClose}>
+        <button
+          type="button"
+          className="close-modal"
+          onClick={onClose}
+          disabled={isSaving}
+        >
           ×
         </button>
+
         <h2>{product ? "Edit Product" : "Add Product"}</h2>
 
         <form onSubmit={handleSubmit}>
@@ -131,18 +140,6 @@ function ProductForm({ product, onClose, onSuccess }) {
             onChange={handleChange}
           />
 
-          {product && (
-            <>
-              <h4>Current Image</h4>
-
-              <img
-                src={`${import.meta.env.VITE_API_URL}/uploads/${product.image}`}
-                alt={product.name}
-                className="preview-image"
-              />
-            </>
-          )}
-
           <label className="image-upload">
             <input
               type="file"
@@ -166,19 +163,13 @@ function ProductForm({ product, onClose, onSuccess }) {
             ) : (
               <div className="empty-upload">
                 <span className="upload-icon">📷</span>
-
                 <h4>Upload Product Image</h4>
-
                 <p>PNG, JPG up to 5 MB</p>
               </div>
             )}
 
             <div className="upload-overlay">
-              {product ? (
-                <>📷 Change Product Image</>
-              ) : (
-                <>📷 Upload Product Image</>
-              )}
+              📷 {product ? "Change Product Image" : "Upload Product Image"}
             </div>
           </label>
 
@@ -193,9 +184,15 @@ function ProductForm({ product, onClose, onSuccess }) {
           </label>
 
           <div className="buttons">
-            <button type="submit">{product ? "Update Product" : "Save"}</button>
+            <button type="submit" disabled={isSaving}>
+              {isSaving
+                ? "Saving..."
+                : product
+                  ? "Update Product"
+                  : "Add Product"}
+            </button>
 
-            <button type="button" onClick={onClose}>
+            <button type="button" onClick={onClose} disabled={isSaving}>
               Cancel
             </button>
           </div>

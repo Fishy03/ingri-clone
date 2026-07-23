@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../../components/Admin/Sidebar";
 import "./Dashboard.css";
-import "./Common/AdminCommon.css";
+import "../../components/Admin/Common/AdminCommon.css";
 import BlogsPanel from "../../components/Admin/BlogsPanel";
 import RecipesPanel from "../../components/Admin/RecipePanel";
 import ProductsPanel from "../../components/Admin/ProductsPanel";

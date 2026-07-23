@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./ProductForm.css";
 import { getToken } from "../../utils/auth";
+import toast from "react-hot-toast";
 
 function RecipeForm({ recipe, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ function RecipeForm({ recipe, onClose, onSuccess }) {
   });
 
   const [image, setImage] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     if (recipe) {
@@ -53,6 +55,7 @@ function RecipeForm({ recipe, onClose, onSuccess }) {
     }
 
     try {
+      setIsSaving(true);
       let url = `${import.meta.env.VITE_API_URL}/api/recipes`;
       let method = "POST";
 
@@ -72,15 +75,18 @@ function RecipeForm({ recipe, onClose, onSuccess }) {
       const result = await response.json();
 
       if (result.success) {
-        alert(recipe ? "Recipe Updated!" : "Recipe Added!");
+        toast.success(recipe ? "Recipe Updated!" : "Recipe Added!");
 
         onSuccess();
         onClose();
       } else {
-        alert(result.message);
+        toast.error(result.message || "Something went wrong.");
       }
     } catch (error) {
       console.error(error);
+      toast.error("Failed to save recipe.");
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -180,11 +186,11 @@ function RecipeForm({ recipe, onClose, onSuccess }) {
           </label>
 
           <div className="buttons">
-            <button type="submit">
-              {recipe ? "Update Recipe" : "Save Recipe"}
+            <button type="submit" disabled={isSaving}>
+              {isSaving ? "Saving..." : recipe ? "Update Recipe" : "Add Recipe"}
             </button>
 
-            <button type="button" onClick={onClose}>
+            <button type="button" onClick={onClose} disabled={isSaving}>
               Cancel
             </button>
           </div>

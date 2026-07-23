@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getToken } from "../../utils/auth";
 import BlogForm from "./BlogForm";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 function BlogsPanel() {
   const [blogs, setBlogs] = useState([]);
@@ -28,11 +29,18 @@ function BlogsPanel() {
   }, []);
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this blog?",
-    );
+    const result = await Swal.fire({
+      title: "Delete Blog?",
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Yes, Delete",
+      cancelButtonText: "Cancel",
+    });
 
-    if (!confirmDelete) return;
+    if (!result.isConfirmed) return;
 
     try {
       const response = await fetch(
@@ -48,12 +56,14 @@ function BlogsPanel() {
       const data = await response.json();
 
       if (data.success) {
+        toast.success("Blog deleted successfully.");
         fetchBlogs();
       } else {
         toast.error(data.message);
       }
     } catch (error) {
       console.error(error);
+      toast.error("Something went wrong.");
     }
   };
 
