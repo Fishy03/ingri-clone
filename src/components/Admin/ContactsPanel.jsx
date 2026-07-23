@@ -89,7 +89,7 @@ function ContactsPanel() {
         </div>
       </div>
 
-      <div className="products-grid-admin">
+      <div className="products-grid-admin compact-grid">
         {contacts.map((contact) => (
           <div className="product-admin-card" key={contact._id}>
             <div className="product-content">

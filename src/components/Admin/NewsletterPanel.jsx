@@ -88,7 +88,7 @@ function NewsletterPanel() {
         </div>
       </div>
 
-      <div className="products-grid-admin">
+      <div className="products-grid-admin compact-grid">
         {subscribers.map((subscriber) => (
           <div className="product-admin-card" key={subscriber._id}>
             <div
